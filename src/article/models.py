@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 # Create your models here.
+
 class Article(models.Model):
     title = models.CharField(max_length=120)
     subtitle = models.CharField(max_length=245, null=True, blank=True)
@@ -12,7 +13,7 @@ class Article(models.Model):
     content = models.TextField()
     thumbnail = models.ImageField()
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-
+    featured = models.BooleanField(default=False)
     def __str__(self):
         return self.title
     
@@ -24,14 +25,29 @@ class Article(models.Model):
         self.slug = slugify(value)
         return super().save(*args, **kwargs)
 
-    # comment count
-
+    # get all the comments
+    @property
+    def get_comments(self):
+        return self.comments_set.all()
+    # comment count -> comment_set.all().count()
+    @property
+    def get_comment_count(self):
+        return self.comment_set.all().count()
     # like count
+    @property
+    def get_like_count(self):
+        return self.like_set.all().count()
+     # like url: for liking this specific post/article
 
+     # used to make post request 
+    def get_like_url(self):
+        return reverse('like', kwargs={'slug': self.slug})
     # view count: count only unique views on this specific article
-
+    @property
+    def get_view_count(self):
+        return self.postview_set.all().count()
     # get all the comments for this specific post
-    # like url: for liking this specific post/article
+   
 
 class Comment(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)

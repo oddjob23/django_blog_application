@@ -1,19 +1,47 @@
 from django.db import models
+
 from django.utils.text import slugify
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 # Create your models here.
-
+Wrd = "World"
+US = "U.S."
+Tech = "Technology"
+Des = "Design"
+Cult = "Culture"
+Bus = "Business"
+Pol = "Politics"
+Op = "Opinion"
+Sc = "Science"
+Hth = "Health"
+St = "Style"
+Tr = "Travel"
+CATEGORY_CHOICES = (
+    (Wrd, 'World'),
+    (US, 'U.S.'),
+    (Tech, 'Technology'),
+    (Des, 'Design'),
+    (Cult, 'Culture'),
+    (Bus, 'Business'),
+    (Pol, 'Politics'),
+    (Op, 'Opinion'),
+    (Sc, 'Science'),
+    (Hth, 'Health'),
+    (St, 'Style'),
+    (Tr, 'Travel')
+)
 class Article(models.Model):
     title = models.CharField(max_length=120)
     subtitle = models.CharField(max_length=245, null=True, blank=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=200)
     publish_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     content = models.TextField()
     thumbnail = models.ImageField()
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     featured = models.BooleanField(default=False)
+    headline = models.BooleanField(default=False)
+    category = models.CharField(choices=CATEGORY_CHOICES, default=Wrd, max_length=20)
     def __str__(self):
         return self.title
     
@@ -24,6 +52,10 @@ class Article(models.Model):
         value = self.title
         self.slug = slugify(value)
         return super().save(*args, **kwargs)
+    
+    def get_headline_article(self):
+        return Article.objects.filter(headline=True).last()
+    
 
     # get all the comments
     @property

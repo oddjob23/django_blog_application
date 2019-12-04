@@ -73,7 +73,20 @@
     {% endblock featured %}
     </div>
     
+  <main class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% block articles %}
+          
+        {% endblock articles %}
 
+      </div>
+      <div class="col-md-4">
+        <h4>About</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis facere neque maxime consequatur aperiam recusandae assumenda illum optio repellat alias!</p>
+      </div>
+    </div>
+  </main>
     {% block content %}
     {% endblock content %}
 

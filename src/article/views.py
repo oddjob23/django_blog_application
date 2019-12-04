@@ -11,7 +11,8 @@ class ArticlesListView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'headline_article': Article.get_headline_article(self),
-            'featured_latest_two': Article.objects.filter(featured=True).order_by('-publish_date')[:2]
+            'featured_latest_two': Article.objects.filter(featured=True).order_by('-publish_date')[:2],
+            'latest_three_articles': Article.objects.all().order_by('-publish_date')[:3]
         }) 
         return context
     

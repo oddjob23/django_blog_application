@@ -29,3 +29,14 @@
 </div>
 {% endfor %}
 {% endblock featured %}
+{% block articles %}
+    {% for article in latest_three_articles %}
+        <h1> {{ article.title }}</h1>
+        {% if article.subtitle %}
+            <h4> {{article.subtitle}}</h4>
+        {% endif %}
+        <small class="italic"> {{article.publish_date|date}} | by <span> {{article.author}}</span> </small>
+        <hr/>
+        <p> {{ article.content }}</p>
+    {% endfor %}
+{% endblock articles %}

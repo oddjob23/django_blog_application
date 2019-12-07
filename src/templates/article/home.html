@@ -37,6 +37,6 @@
         {% endif %}
         <small class="italic"> {{article.publish_date|date}} | by <span> {{article.author}}</span> </small>
         <hr/>
-        <p> {{ article.content }}</p>
+        <p> {{ article.content|safe }}</p>
     {% endfor %}
 {% endblock articles %}

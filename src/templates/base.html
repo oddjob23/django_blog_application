@@ -41,7 +41,7 @@
 
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
-        <a class="p-2 text-muted" href="#">World</a>
+        <a class="p-2 text-muted" href="{% url 'category' "World" %}">World</a>
         <a class="p-2 text-muted" href="#">U.S.</a>
         <a class="p-2 text-muted" href="#">Technology</a>
         <a class="p-2 text-muted" href="#">Design</a>
@@ -85,6 +85,11 @@
       <div class="col-md-4">
         <h4>About</h4>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis facere neque maxime consequatur aperiam recusandae assumenda illum optio repellat alias!</p>
+
+        {% block latest %}
+          
+        {% endblock latest %}
+          
       </div>
     </div>
   </main>

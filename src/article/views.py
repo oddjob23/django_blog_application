@@ -15,4 +15,19 @@ class ArticlesListView(TemplateView):
             'latest_three_articles': Article.objects.all().order_by('-publish_date')[:3]
         }) 
         return context
+
+class CategoryListView(ListView):
+    template_name = 'article/category_view.html'
+    model = Article
+    context_object_name = 'articles'
     
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+        category = self.kwargs['category']
+        context.update({
+            'category': category,
+            'category_articles': Article.objects.filter(category="World").order_by('-publish_date'),
+            'category_articles_latest': Article.objects.filter(category="World").order_by('-publish_date')[:3]
+        })
+        return context

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title> {{articles.category}} Articles </title>
+{% endblock title %}
+
+
+{% block articles %}
+    {% for article in category_articles %}
+        <h1> {{ article.title }}</h1>
+        {% if article.subtitle %}
+            <h4> {{article.subtitle}}</h4>
+        {% endif %}
+        <small class="italic"> {{article.publish_date|date}} | by <span> {{article.author}}</span> </small>
+        <hr/>
+        <p> {{ article.content|safe }}</p>
+    {% endfor %}
+{% endblock articles %}
+
+{% block latest %}
+    <div class="card">
+        {% for article in category_articles_latest %}
+            <h1>{{article.title}}</h1>
+        {% endfor %}
+    </div>
+{% endblock latest %}
+    <div class="card">
+
+    </div>
